@@ -23,12 +23,9 @@ export default function Demo() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Determine the API URL based on the hostname
-      const isProduction = window.location.hostname === 'cazini.co.ke';
-      const apiUrl = isProduction 
-        ? 'https://cazini.co.ke/api/employerWaitlist' 
-        : '/api/employerWaitlist';
-        
+      // Use a purely relative path for the API call
+      const apiUrl = "/api/employerWaitlist";
+
       const response = await fetch(apiUrl, {
         method: "POST",
         headers: {
