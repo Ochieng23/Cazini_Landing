@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
@@ -16,11 +16,6 @@ export default function Demo() {
   const [formData, setFormData] = useState(initialFormData);
   const [message, setMessage] = useState("");
 
-  // Ensure the Axios base URL is not set globally
-  useEffect(() => {
-    axios.defaults.baseURL = "";
-  }, []);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -29,7 +24,7 @@ export default function Demo() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const apiUrl = "/api/employerWaitlist"; // Relative path
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL; // Use environment variable
 
       const response = await axios.post(apiUrl, formData);
 
