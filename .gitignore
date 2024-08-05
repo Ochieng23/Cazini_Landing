@@ -37,4 +37,5 @@ next-env.d.ts
 kazini-mailing-lost-4682100ac486.json
 credentials.json
 googlecredential.json
-.env
+.env.local
+.env.production
