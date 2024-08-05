@@ -2,7 +2,7 @@
 import { useState, useRef } from "react";
 import Link from "next/link";
 import { Menu, Popover, Transition } from "@headlessui/react";
-import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
+
 import { Button } from "@/components/Button";
 import { Container } from "@/components/Container";
 import { Logo } from "@/components/Logo";
