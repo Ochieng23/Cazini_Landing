@@ -1,9 +1,10 @@
 "use client";
+
 import { useState } from "react";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 
-export default function MailingList() {
+export default function Demo() {
   const initialFormData = {
     name: "",
     company: "",
@@ -22,7 +23,11 @@ export default function MailingList() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("/api/employerWaitlist", {
+      const apiUrl = process.env.NODE_ENV === 'production' 
+        ? 'https://cazini.co.ke/api/employerWaitlist' 
+        : '/api/employerWaitlist';
+        
+      const response = await fetch(apiUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
