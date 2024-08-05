@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 
@@ -15,6 +16,11 @@ export default function Demo() {
   const [formData, setFormData] = useState(initialFormData);
   const [message, setMessage] = useState("");
 
+  // Ensure the Axios base URL is not set globally
+  useEffect(() => {
+    axios.defaults.baseURL = "";
+  }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -23,23 +29,13 @@ export default function Demo() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Use a purely relative path for the API call
-      const apiUrl = "/api/employerWaitlist";
+      const apiUrl = "/api/employerWaitlist"; // Relative path
 
-      const response = await fetch(apiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await axios.post(apiUrl, formData);
 
-      if (!response.ok) {
+      if (response.status !== 200) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-
-      const result = await response.json();
-      console.log(result);
 
       // Reset the form data and set success message
       setFormData(initialFormData);
