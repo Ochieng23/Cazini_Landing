@@ -24,20 +24,33 @@ export default function Demo() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL; // Use environment variable
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+      const apiKey = process.env.NEXT_PUBLIC_SENDGRID_API_KEY;
+      const listId = process.env.NEXT_PUBLIC_SENDGRID_LIST_ID;
 
-      const response = await axios.post(apiUrl, formData);
+      const data = {
+        list_ids: [listId],
+        contacts: [{ email: formData.email }],
+      };
 
-      if (response.status !== 200) {
+      const response = await axios.put(apiUrl, data, {
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.status !== 202) {
+        // Check for accepted status
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       // Reset the form data and set success message
       setFormData(initialFormData);
-      setMessage("Form data saved successfully");
+      setMessage("Subscription successful!");
     } catch (error) {
       console.error("Error submitting form:", error);
-      setMessage("Error saving form data");
+      setMessage("Subscription failed");
     }
   };
 
