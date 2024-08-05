@@ -35,5 +35,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 kazini-mailing-lost-4682100ac486.json
-credential.json
+credentials.json
 googlecredential.json
