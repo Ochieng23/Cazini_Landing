@@ -23,7 +23,9 @@ export default function Demo() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const apiUrl = process.env.NODE_ENV === 'production' 
+      // Determine the API URL based on the hostname
+      const isProduction = window.location.hostname === 'cazini.co.ke';
+      const apiUrl = isProduction 
         ? 'https://cazini.co.ke/api/employerWaitlist' 
         : '/api/employerWaitlist';
         
